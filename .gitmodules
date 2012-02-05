@@ -1,0 +1,18 @@
+[submodule "src/fuel/core"]
+	path = src/fuel/core
+	url = git://github.com/fuel/core.git
+[submodule "docs/fuelphp"]
+	path = docs/fuelphp
+	url = git://github.com/fuel/docs.git
+[submodule "src/fuel/packages/oil"]
+	path = src/fuel/packages/oil
+	url = git://github.com/fuel/oil.git
+[submodule "src/fuel/packages/parser"]
+	path = src/fuel/packages/parser
+	url = git://github.com/fuel/parser.git
+[submodule "src/fuel/packages/email"]
+	path = src/fuel/packages/email
+	url = git://github.com/fuel/email.git
+[submodule "src/fuel/packages/sentry"]
+	path = src/fuel/packages/sentry
+	url = git://github.com/cartalyst/sentry.git

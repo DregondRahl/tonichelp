@@ -12,7 +12,7 @@
 
 return array(
 
-	// We define 
+	// We define if the application needs to be installed
 	'to_install' => true,
 
 );

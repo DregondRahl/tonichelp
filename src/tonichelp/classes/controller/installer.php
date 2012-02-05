@@ -10,18 +10,24 @@
  * @link       http://tonichelp.com
  */
 
-class Controller extends Fuel\Core\Controller
+class Controller_Installer extends \Controller
 {
 	
 	public function before()
 	{
-		// Check if the application is installed
-		if (!file_exists(realpath(APPPATH.'config/tonichelp.php')) OR Config::get('tonichelp.to_install'))
-		{
-			Response::redirect('installer');
-		}
-
 		parent::before();
+		
+		// Check if the application is installed
+		if (file_exists(realpath(APPPATH.'config/tonichelp.php')) AND (bool) Config::get('tonichelp.to_install') === false)
+		{
+			// We don't let the user know that the controller exists
+			throw new HttpNotFoundException;
+		}
+	}
+
+	public function action_index()
+	{
+		
 	}
 
 }

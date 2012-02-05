@@ -9,7 +9,7 @@ require COREPATH.'bootstrap.php';
 
 
 Autoloader::add_classes(array(
-	'Controller' => APPPATH.'classes/controller.php',
+	//'Controller' => APPPATH.'classes/controller.php',
 ));
 
 // Register the autoloader

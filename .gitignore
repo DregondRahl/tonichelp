@@ -7,7 +7,7 @@ desktop.ini
 .project
 .settings
 .tmpoj
-src/fuel/app/logs/*/*/*
-src/fuel/app/cache/*/*
+src/tonichelp/logs/*/*/*
+src/tonichelp/cache/*/*
 nbproject/
 .idea

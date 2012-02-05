@@ -41,7 +41,7 @@ return array(
 	 *
 	 * Set this to false or remove if you using mod_rewrite.
 	 */
-	'index_file'  => 'index.php',
+	'index_file'  => false,
 
 	'profiling'  => false,
 
@@ -164,7 +164,7 @@ return array(
 	 *      array(APPPATH.'modules'.DS)
 	 */
 	'module_paths' => array(
-		//APPPATH.'modules'.DS
+		APPPATH.'modules'.DS
 	),
 
 
@@ -185,7 +185,9 @@ return array(
 		 * );
 		 */
 		'packages'  => array(
-			//'orm',
+			'email',
+			'parser',
+			'sentry',
 		),
 
 		/**
@@ -211,7 +213,9 @@ return array(
 		 * add it like 'session' => 'auth'.
 		 * If you don't want the config in a group use null as groupname.
 		 */
-		'config'  => array(),
+		'config'  => array(
+			'tonichelp'
+		),
 
 		/**
 		 * Language files to autoload

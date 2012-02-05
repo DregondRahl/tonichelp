@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Set error reporting and display errors settings.  You will want to change these when in production.
  */
@@ -15,22 +14,6 @@ define('DOCROOT', __DIR__.DIRECTORY_SEPARATOR);
  * Path to the application directory.
  */
 define('APPPATH', realpath(__DIR__.'/../tonichelp/').DIRECTORY_SEPARATOR);
-
-/**
- * +--------------------------------------------------------------------------+
- * | INSTALLER                                                                |
- * +--------------------------------------------------------------------------+
- *
- * If exists the db.php config file for production, the installer app needs to
- * be deleted. If it's installed this if can be deleted too.
- */
-if (file_exists(realpath(APPPATH.'config/production/db.php')))
-{
-	if (is_dir(realpath(__DIR__.'/../installer/'.DIRECTORY_SEPARATOR)))
-	{
-		exit("Please, delete the 'installer' directory on the root of the application.");
-	}
-}
 
 /**
  * Path to the default packages directory.

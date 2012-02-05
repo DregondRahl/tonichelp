@@ -12,6 +12,7 @@
 
 return array(
 
-	
+	// We define 
+	'to_install' => true,
 
 );

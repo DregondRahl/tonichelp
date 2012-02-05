@@ -1,9 +1,10 @@
 # TonicHelp
 
+Is a open source support ticket system (or helpdek) in PHP.
 
 ## Submodules
 
-TonicHelp is coded in PHP and built on to of the awesome PHP framework [FuelPHP](http://fuelphp.com). We will use FuelPHP with submodules and we can easily update the core of the application. We also use the [Sentry](https://github.com/cartalyst/sentry) package for authentication.
+TonicHelp is coded in PHP and built on top of the awesome PHP framework [FuelPHP](http://fuelphp.com). We will use FuelPHP with submodules and we can easily update the core of the application. We also use the [Sentry](https://github.com/cartalyst/sentry) package for authentication.
 
 To clone TonicHelp using submodules we need to do:
 

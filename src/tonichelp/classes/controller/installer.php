@@ -27,6 +27,16 @@ class Controller_Installer extends \Controller
 
 	public function action_index()
 	{
+		if(Input::post())
+		{
+			$val = Validation::forge();
+			
+			if($val->run())
+			{
+				
+			}
+		}
+
 		return Response::forge(View::forge('installer/index'));
 	}
 

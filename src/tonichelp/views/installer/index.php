@@ -48,7 +48,7 @@
 							<legend><?php echo __('tonichelp.installer.step_1.admin_user');?></legend>
 
 							<div class="control-group">
-								<label class="control-label" for="username"><?php echo __('tonichelp.label.name'); ?></label>
+								<label class="control-label" for="username"><?php echo __('tonichelp.label.username'); ?></label>
 
 								<div class="controls">
 									<input name="username" id="username" class="input-xlarge" type="text" />
@@ -64,18 +64,18 @@
 							</div>
 
 							<div class="control-group">
-								<label class="control-label" for="name"><?php echo __('tonichelp.label.password'); ?></label>
+								<label class="control-label" for="password"><?php echo __('tonichelp.label.password'); ?></label>
 
 								<div class="controls">
-									<input name="name" id="name" class="input-xlarge" type="password" />
+									<input name="password" id="password" class="input-xlarge" type="password" />
 								</div>
 							</div>
 
 							<div class="control-group">
-								<label class="control-label" for="name"><?php echo __('tonichelp.label.repeat_password'); ?></label>
+								<label class="control-label" for="repeat_password"><?php echo __('tonichelp.label.repeat_password'); ?></label>
 
 								<div class="controls">
-									<input name="name" id="name" class="input-xlarge" type="password" />
+									<input name="repeat_password" id="repeat_password" class="input-xlarge" type="password" />
 								</div>
 							</div>
 						</fieldset>
@@ -93,10 +93,10 @@
 							</div>
 
 							<div class="control-group">
-								<label class="control-label" for="system_email"><?php echo __('tonichelp.label.default_email'); ?></label>
+								<label class="control-label" for="default_email"><?php echo __('tonichelp.label.default_email'); ?></label>
 
 								<div class="controls">
-									<input name="system_email" id="system_email" class="input-xlarge" type="text" value="" />
+									<input name="default_email" id="default_email" class="input-xlarge" type="text" value="" />
 									<p class="help-block"><?php echo __('tonichelp.installer.step_1.general_email_help');?></p>
 								</div>
 							</div>

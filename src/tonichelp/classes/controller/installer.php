@@ -30,7 +30,21 @@ class Controller_Installer extends \Controller
 		if(Input::post())
 		{
 			$val = Validation::forge();
-			
+
+			$val->add('username', __('tonichelp.label.name'))->add_rule('required')->add_rule('min_length', 2)->add_rule('max_length', 32);
+			$val->add('email', __('tonichelp.label.email'))->add_rule('required')->add_rule('valid_email');
+			$val->add('password', __('tonichelp.label.password'))->add_rule('required')->add_rule('min_length', 8);
+			$val->add('repeat_password', __('tonichelp.label.repeat_password'))->add_rule('required')->add_rule('match_field', 'password');
+
+			$val->add('name', __('tonichelp.label.name'))->add_rule('required');
+			$val->add('default_email', __('tonichelp.label.default_email'))->add_rule('required')->add_rule('valid_email');
+
+			$val->add('db_name', __('tonichelp.label.name'))->add_rule('required');
+			$val->add('db_user', __('tonichelp.label.username'))->add_rule('required');
+			$val->add('db_password', __('tonichelp.label.password'))->add_rule('required');
+			$val->add('db_prefix', __('tonichelp.label.table_prefix'));
+			$val->add('db_engine', __('tonichelp.label.table_engine'))->add_rule('required')->add_rule('valig_string', array('numeric'));
+
 			if($val->run())
 			{
 				

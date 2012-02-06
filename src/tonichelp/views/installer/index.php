@@ -35,7 +35,7 @@
 			<div class="page-header">
 				<h1>
 					Step 1
-					<small>General & database settings</small>
+					<small>General and database settings</small>
 				</h1>
 			</div>
 			
@@ -47,7 +47,7 @@
 				<div class="span_12">
 				<form class="form-horizontal" action="">
 					<fieldset>
-						<legend>Required settings</legend>
+						<legend>Administrator settings</legend>
 
 						<div class="control-group">
 							<label class="control-label" for="">Example</label>

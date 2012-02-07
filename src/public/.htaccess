@@ -1,4 +1,6 @@
 <IfModule mod_rewrite.c>
+	SetEnv FUEL_ENV development
+
     RewriteEngine on
 
     RewriteCond %{REQUEST_FILENAME} !-f

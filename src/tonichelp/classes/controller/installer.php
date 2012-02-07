@@ -40,10 +40,10 @@ class Controller_Installer extends \Controller
 			$val->add('default_email', __('tonichelp.label.default_email'))->add_rule('required')->add_rule('valid_email');
 
 			$val->add('db_name', __('tonichelp.label.name'))->add_rule('required');
-			$val->add('db_user', __('tonichelp.label.username'))->add_rule('required');
+			$val->add('db_username', __('tonichelp.label.username'))->add_rule('required');
 			$val->add('db_password', __('tonichelp.label.password'))->add_rule('required');
 			$val->add('db_prefix', __('tonichelp.label.table_prefix'));
-			$val->add('db_engine', __('tonichelp.label.table_engine'))->add_rule('required')->add_rule('valig_string', array('numeric'));
+			$val->add('db_engine', __('tonichelp.label.table_engine'))->add_rule('required')->add_rule('valid_string', array('numeric'));
 
 			if($val->run())
 			{

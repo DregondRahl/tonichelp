@@ -113,6 +113,15 @@
 						<fieldset>
 							<legend><?php echo __('tonichelp.installer.step_1.mysql_database');?></legend>
 
+							<div class="control-group <?php if($val->error('db_hostname')):?>error<?php endif; ?>">
+								<label class="control-label" for="db_hostname"><?php echo __('tonichelp.label.hostname'); ?></label>
+
+								<div class="controls">
+									<input name="db_hostname" id="db_hostname" class="input-xlarge" type="text" value="<?php echo Input::post('db_hostname');?>" />
+									<?php echo (($val->errors('db_hostname')) ? $val->error('db_hostname')->get_message() : ''); ?>
+								</div>
+							</div>
+
 							<div class="control-group <?php if($val->error('db_name')):?>error<?php endif; ?>">
 								<label class="control-label" for="db_name"><?php echo __('tonichelp.label.name'); ?></label>
 

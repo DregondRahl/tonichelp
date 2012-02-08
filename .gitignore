@@ -13,6 +13,7 @@ nbproject/
 # FuelPHP files to ignore
 src/tonichelp/logs/*/*/*
 src/tonichelp/cache/*/*
+src/tonichelp/config/crypt.php
 
 # TonicHelp specific ones
 src/tonichelp/config/production/db.php

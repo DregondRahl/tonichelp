@@ -44,7 +44,7 @@ class Controller_Installer extends \Controller
 			$val->add('db_username', __('tonichelp.label.username'))->add_rule('required');
 			$val->add('db_password', __('tonichelp.label.password'))->add_rule('required');
 			$val->add('db_prefix', __('tonichelp.label.table_prefix'));
-			$val->add('db_engine', __('tonichelp.label.table_engine'))->add_rule('required')->add_rule('valid_string', array('numeric'));
+			$val->add('db_engine', __('tonichelp.label.table_engine'))->add_rule('required');
 
 			if ($val->run())
 			{
@@ -53,6 +53,7 @@ class Controller_Installer extends \Controller
 				$username     = Input::post('db_username');
 				$password     = Input::post('db_password');
 				$table_prefix = Input::post('db_prefix');
+				$engine       = Input::post('db_engine');
 
 				// Database configuration schema
 				$config = array(
@@ -64,6 +65,7 @@ class Controller_Installer extends \Controller
 							'persistent' => false,
 						),
 						'table_prefix' => $table_prefix,
+						'engine' => $engine,
 					),
 				);
 

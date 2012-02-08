@@ -172,8 +172,8 @@
 
 								<div class="controls">
 									<select id="db_engine" name="db_engine" class="input-xlarge">
-										<option value="0" <?php if(Input::post('db_engine', '0') == '0'):;?>selected<?php endif; ?>>InnoDB <i>(<?php echo __('tonichelp.installer.step_1.mysql_engine_default');?>)</i></option>
-										<option value="1" <?php if(Input::post('db_engine', '0') == '1'):;?>selected<?php endif; ?>>TokuDB</option>
+										<option value="InnoDB" <?php if(Input::post('db_engine', 'InnoDB') == 'InnoDB'):;?>selected<?php endif; ?>>InnoDB <i>(<?php echo __('tonichelp.installer.step_1.mysql_engine_default');?>)</i></option>
+										<option value="TokuDB" <?php if(Input::post('db_engine', 'InnoDB') == 'TokuDB'):;?>selected<?php endif; ?>>TokuDB</option>
 									</select>
 									<?php echo (($val->errors('db_engine')) ? $val->error('db_engine')->get_message() : ''); ?>
 									<p class="help-block"><?php echo __('tonichelp.installer.step_1.mysql_engine_help');?></p>

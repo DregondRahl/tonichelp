@@ -82,7 +82,7 @@ class Controller_Installer extends \Controller
 					}
 					catch (FileAccessException $e)
 					{
-						$error = Lang::get('tonichelp.installer.errors.invalid_path', array('path' => $basepath));
+						$error = __('tonichelp.installer.errors.invalid_path', array('path' => $basepath));
 						
 						return Response::forge(View::forge('installer/index', array('error' => $error)));
 					}
@@ -97,7 +97,7 @@ class Controller_Installer extends \Controller
 					}
 					catch (InvalidPathException $e)
 					{
-						$error = Lang::get('tonichelp.installer.errors.invalid_path', array('path' => $path));
+						$error = __('tonichelp.installer.errors.invalid_path', array('path' => $path));
 						
 						return Response::forge(View::forge('installer/index', array('error' => $error)));
 					}
@@ -114,7 +114,7 @@ class Controller_Installer extends \Controller
 				}
 				catch (FileAccessException $e)
 				{
-					$error = Lang::get('tonichelp.installer.errors.config', array('path' => $path.'db.php'));
+					$error = __('tonichelp.installer.errors.config', array('path' => $path.'db.php'));
 						
 					return Response::forge(View::forge('installer/index', array('error' => $error)));
 				}
@@ -134,27 +134,24 @@ class Controller_Installer extends \Controller
 					}
 					catch (FileAccessException $e)
 					{
-						$error = Lang::get('tonichelp.installer.errors.config', array('path' => $path.'db.php'));
+						$error = __('tonichelp.installer.errors.config', array('path' => $path.'db.php'));
 							
 						return Response::forge(View::forge('installer/index', array('error' => $error)));
 					}
 				}
 				catch (Database_Exception $e)
 				{
-					$error = Lang::get('tonichelp.installer.errors.create_database', array('dbname' => $dbname));
+					$error = __('tonichelp.installer.errors.create_database', array('dbname' => $dbname));
 						
 					return Response::forge(View::forge('installer/index', array('error' => $error)));
 				}
 
-				// Finally, we save other vars on tonichelp config file
-				$name          = Input::post('name');
-				$default_email = Input::post('default_email');
-
+				// General config vars on tonichelp config file (on next step will be migrated to DB too)
 				$config = array(
 					'to_install' => true, // This will force the installation process
 					'site'       => array(
-						'name'          => $name,
-						'default_email' => $default_email
+						'name'          => Input::post('name'),
+						'default_email' => Input::post('default_email'),
 					),
 				);
 
@@ -164,15 +161,32 @@ class Controller_Installer extends \Controller
 				}
 				catch (FileAccessException $e)
 				{
-					$error = Lang::get('tonichelp.installer.errors.config', array('path' => APPPATH.'config/tonichelp.php'));
+					$error = __('tonichelp.installer.errors.config', array('path' => APPPATH.'config/tonichelp.php'));
 						
 					return Response::forge(View::forge('installer/index', array('error' => $error)));
 				}
 				
+				// Finally, we save temporaly username, password and email on Session
+				$user_data = array(
+					'username'  => Input::post('username'),
+					'password'  => Input::post('password'),
+					'email'     => Input::post('email'),
+				);
+
+				Session::set('user_data', $user_data);
+
+				// We are done, send the user to the confirmation page
+				Response::redirect('installer/confirm');
 			}
 		}
 
 		return Response::forge(View::forge('installer/index'));
+	}
+
+	public function action_confirm()
+	{
+		Debug::dump(Session::get('user_data'));
+		die("step 2");
 	}
 
 }

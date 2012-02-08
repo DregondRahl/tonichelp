@@ -7,7 +7,12 @@ desktop.ini
 .project
 .settings
 .tmpoj
+.idea
+nbproject/
+
+# FuelPHP files to ignore
 src/tonichelp/logs/*/*/*
 src/tonichelp/cache/*/*
-nbproject/
-.idea
+
+# TonicHelp specific ones
+src/tonichelp/config/production/db.php

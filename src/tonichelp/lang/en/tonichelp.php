@@ -67,6 +67,7 @@ return array(
 			'invalid_path'              => "File cannot be created or writed. Does the directory ':path' exists and is writable?",
 			'write_config'              => "The config file ':path' can't be wrote.",
 			'create_database'           => "The database ':dbname' can't be created. Do you have rights?",
+			'invalid_delete'			=> "The file/path can't be deleted. Does ':path' exists and have rights?",
 		),
 	),
 

@@ -197,39 +197,51 @@ class Controller_Installer extends \Controller
 			if(isset($_POST['cancel']))
 			{
 				// Delete the production db file
-				if (file_exists(realpath(APPPATH.'config/production/db.php')))
+				$db_path = APPPATH.'config/production/db.php';
+
+				if (file_exists(realpath($db_path)))
 				{
 					try
 					{
-						File::delete(realpath(APPPATH.'config/production/db.php'))	
+						File::delete(realpath($db_path));
 					}
 					catch (OutsideAreaException $e)
 					{
-								
+						
 					}
 					catch (InvalidPathException $e)
 					{
-						
+						$error = __('tonichelp.installer.errors.invalid_delete', array('path' => $db_path));
+
+						return Response::forge(View::forge('installer/index', array('error' => $error)));
 					}
 				}
 
 				// Delete tonichelp config file
-				if (file_exists(realpath(APPPATH.'config/tonichelp.php')))
+				$config_path = APPPATH.'config/tonichelp.php';
+
+				if (file_exists(realpath($config_path)))
 				{
 					try
 					{
-						File::delete(realpath(APPPATH.'config/tonichelp.php'))	
+						File::delete(realpath($config_path));
 					}
 					catch (OutsideAreaException $e)
 					{
-								
+						
 					}
 					catch (InvalidPathException $e)
 					{
-						
+						$error = __('tonichelp.installer.errors.invalid_delete', array('path' => $config_path));
+
+						return Response::forge(View::forge('installer/index', array('error' => $error)));	
 					}
 				}
 
+				// Clear Session data and return to step 1
+				Session::destroy();
+
+				Response::redirect('installer');
 			}
 
 			// We have the user confirmation, so run the migration task

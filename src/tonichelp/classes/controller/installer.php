@@ -27,7 +27,7 @@ class Controller_Installer extends \Controller
 
 	public function action_index()
 	{
-		if(Input::post())
+		if (Input::post())
 		{
 			$val = Validation::forge();
 
@@ -46,62 +46,127 @@ class Controller_Installer extends \Controller
 			$val->add('db_prefix', __('tonichelp.label.table_prefix'));
 			$val->add('db_engine', __('tonichelp.label.table_engine'))->add_rule('required')->add_rule('valid_string', array('numeric'));
 
-			if($val->run())
+			if ($val->run())
 			{
-				$config = array('test' => 'vafoor');
-
-				$path = realpath(APPPATH.'config/production/');
-
-				// If file doesn't exists, we will create it!
-				if(!file_exists($path.'/db.php'))
-				{
-					try
-					{
-						File::create($path, 'db.php', null);	
-					}
-					catch (InvalidPathException $e)
-					{
-						// directory can't be written
-					}
-					catch (FileAccessException $e)
-					{
-						// file exists so... we can replace the old config :-)!!
-					}
-				}
-
-				Config::save($path.'/db.php', $config);
-
-
-				/*
-				$db_config = Config::load(realpath(APPPATH.'production/db.php'), 'db', true, true);
-
-				Debug::dump(file_exists(realpath(APPPATH.'production/db.php')), $db_config, Config::get('db'));die;
-
 				$hostname     = Input::post('db_hostname');
 				$dbname       = Input::post('db_name');
 				$username     = Input::post('db_username');
 				$password     = Input::post('db_password');
 				$table_prefix = Input::post('db_prefix');
 
-				// First we try the database connection
+				// Database configuration schema
 				$config = array(
-					'connection'  => array(
-						'dsn'        => 'mysql:host='.$hostname,
-						'username'   => $username,
-						'password'   => $password,
-						'persistent' => false,
+					'default' => array(
+						'connection'  => array(
+							'dsn'        => 'mysql:host='.$hostname, // We save later the dbname
+							'username'   => $username,
+							'password'   => $password,
+							'persistent' => false,
+						),
+						'table_prefix' => $table_prefix,
 					),
-					'type'         => 'pdo',
-					'identifier'   => '`',
-					'table_prefix' => $table_prefix,
-					'charset'      => 'utf8',
-					'caching'      => false,
-					'profiling'    => false,
 				);
 
-				$db = Database_Connection::instance($dbname, $config);
+				// Path for db config
+				$basepath = APPPATH.'config/';
+				$path     = $basepath.'production/';
 
-				DB::query('CREATE DATABASE '.DB::quote_identifier($dbname).' CHARACTER SET '.$config['charset'], \DB::UPDATE)->execute($dbname);*/
+				// We will create the production dir if not found
+				if (!is_dir(realpath($path)))
+				{
+					try
+					{
+						File::create_dir(realpath($basepath), 'production', 0777);
+					}
+					catch (FileAccessException $e)
+					{
+						$error = Lang::get('tonichelp.installer.errors.invalid_path', array('path' => $basepath));
+						
+						return Response::forge(View::forge('installer/index', array('error' => $error)));
+					}
+				}
+
+				// If file doesn't exists, we will create it!
+				if (!file_exists(realpath($path.'db.php')))
+				{
+					try
+					{
+						File::create(realpath($path), 'db.php', null);	
+					}
+					catch (InvalidPathException $e)
+					{
+						$error = Lang::get('tonichelp.installer.errors.invalid_path', array('path' => $path));
+						
+						return Response::forge(View::forge('installer/index', array('error' => $error)));
+					}
+					catch (FileAccessException $e)
+					{
+						// file exists so ignore that... we can replace the old config :-)!!
+					}
+				}
+
+				// Ok, the file exists or has been created... now write our db config!
+				try
+				{
+					Config::save(realpath($path.'db.php'), $config);
+				}
+				catch (FileAccessException $e)
+				{
+					$error = Lang::get('tonichelp.installer.errors.config', array('path' => $path.'db.php'));
+						
+					return Response::forge(View::forge('installer/index', array('error' => $error)));
+				}
+
+				// Congrats! You've now a DB config but... does it work? ;-)
+				try
+				{
+					// This will create the database (if exists, it will ignore it)
+					DBUtil::create_database($dbname);
+
+					// Now we can setup the db file with the full dsn connection
+					try
+					{
+						Config::load(realpath($path.'db.php'), 'db');
+						Config::set('db.default.connection.dsn', 'mysql:host='.$hostname.';dbname='.$dbname);
+						Config::save(realpath($path.'db.php'), 'db');
+					}
+					catch (FileAccessException $e)
+					{
+						$error = Lang::get('tonichelp.installer.errors.config', array('path' => $path.'db.php'));
+							
+						return Response::forge(View::forge('installer/index', array('error' => $error)));
+					}
+				}
+				catch (Database_Exception $e)
+				{
+					$error = Lang::get('tonichelp.installer.errors.create_database', array('dbname' => $dbname));
+						
+					return Response::forge(View::forge('installer/index', array('error' => $error)));
+				}
+
+				// Finally, we save other vars on tonichelp config file
+				$name          = Input::post('name');
+				$default_email = Input::post('default_email');
+
+				$config = array(
+					'to_install' => true, // This will force the installation process
+					'site'       => array(
+						'name'          => $name,
+						'default_email' => $default_email
+					),
+				);
+
+				try
+				{
+					Config::save('tonichelp', $config);
+				}
+				catch (FileAccessException $e)
+				{
+					$error = Lang::get('tonichelp.installer.errors.config', array('path' => APPPATH.'config/tonichelp.php'));
+						
+					return Response::forge(View::forge('installer/index', array('error' => $error)));
+				}
+				
 			}
 		}
 

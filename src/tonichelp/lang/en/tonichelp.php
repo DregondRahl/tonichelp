@@ -55,6 +55,12 @@ return array(
 			'mysql_engine_default'      => 'default',
 			'mysql_engine_help'         => "If you don't know what is that, better don't touch it.",
 		),
+
+		'errors' => array(
+			'invalid_path'              => "File cannot be created or writed. Does the directory ':path' exists and is writable?",
+			'write_config'              => "The config file ':path' can't be wrote.",
+			'create_database'           => "The database ':dbname' can't be created. Do you have rights?",
+		),
 	),
 
 

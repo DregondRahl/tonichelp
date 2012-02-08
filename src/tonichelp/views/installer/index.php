@@ -34,6 +34,14 @@
 
 			<div class="row">
 				<div class="span8 offset2">
+					<?php if(isset($error)): ?>
+						<div class="alert alert-block alert-error">
+							<a class="close" data-dismiss="alert">×</a>
+							<h4 class="alert-heading">Error!</h4><?php echo $error; ?>
+						</div>
+					<?php endif; ?>
+
+
 					<div class="page-header">
 						<h1>
 							<?php echo __('tonichelp.installer.step_1.title'); ?>

@@ -175,6 +175,9 @@ class Controller_Installer extends \Controller
 
 				Session::set('user_data', $user_data);
 
+				// To know if we had run the step 1
+				Session::set('step_1', true);
+
 				// We are done, send the user to the confirmation page
 				Response::redirect('installer/confirm');
 			}
@@ -185,8 +188,55 @@ class Controller_Installer extends \Controller
 
 	public function action_confirm()
 	{
-		Debug::dump(Session::get('user_data'));
-		die("step 2");
+		// Confirm that we had run the first step of the installer
+		if (!Session::get('step_1'))
+			Response::redirect('installer');
+
+		if(Input::post())
+		{
+			if(isset($_POST['cancel']))
+			{
+				// Delete the production db file
+				if (file_exists(realpath(APPPATH.'config/production/db.php')))
+				{
+					try
+					{
+						File::delete(realpath(APPPATH.'config/production/db.php'))	
+					}
+					catch (OutsideAreaException $e)
+					{
+								
+					}
+					catch (InvalidPathException $e)
+					{
+						
+					}
+				}
+
+				// Delete tonichelp config file
+				if (file_exists(realpath(APPPATH.'config/tonichelp.php')))
+				{
+					try
+					{
+						File::delete(realpath(APPPATH.'config/tonichelp.php'))	
+					}
+					catch (OutsideAreaException $e)
+					{
+								
+					}
+					catch (InvalidPathException $e)
+					{
+						
+					}
+				}
+
+			}
+
+			// We have the user confirmation, so run the migration task
+			// to install the first schema
+		}
+
+		return Response::forge(View::forge('installer/confirm'));
 	}
 
 }

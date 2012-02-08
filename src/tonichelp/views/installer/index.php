@@ -10,9 +10,9 @@
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
-		<link href="/assets/css/bootstrap.css" rel="stylesheet">
-		<style>body {padding-top: 60px;}</style>
-		<link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="/assets/css/main.css" rel="stylesheet">
 	</head>
 
 	<body>

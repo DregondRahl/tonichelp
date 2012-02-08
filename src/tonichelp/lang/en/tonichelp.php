@@ -34,6 +34,7 @@ return array(
 		'save'                  => 'Save',
 		'cancel'                => 'Cancel',
 		'install'               => 'Install',
+		'confirm'               => 'Confirm',
 	),
 
 	/**
@@ -54,6 +55,12 @@ return array(
 			'mysql_prefix_help'         => 'Prefix the database tables, ie: <strong>th_</strong>',
 			'mysql_engine_default'      => 'default',
 			'mysql_engine_help'         => "If you don't know what is that, better don't touch it.",
+		),
+
+		'step_2' => array(
+			'title'                     => 'Step 2',
+			'caption'                   => 'Confirmation',
+			'introduction'              => 'Did you have an old TonicHelp installation? Run this process will delete old tables. If you want another instance of TonicHelp, just use a database prefix.',
 		),
 
 		'errors' => array(

@@ -4,6 +4,6 @@ return array(
 	'site' => 
 	array(
 		'name' => 'TonicHelp | Ticket Support System',
-		'default_email' => 'support@ipalaus.es',
+		'default_email' => 'ipalaus@ipalaus.es',
 	),
 );

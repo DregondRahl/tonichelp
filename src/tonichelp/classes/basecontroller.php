@@ -5,7 +5,7 @@
  * @package    TonicHelp
  * @version    1.0
  * @author     TonicHelp Development Team
- * @license    -- to be decided --
+ * @license    BSD 3-Clause License
  * @copyright  2012 TonicHelp Development Team
  * @link       http://tonichelp.com
  */

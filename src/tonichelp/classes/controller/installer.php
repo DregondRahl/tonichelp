@@ -246,6 +246,7 @@ class Controller_Installer extends \Controller
 
 			// We have the user confirmation, so run the migration task
 			// to install the first schema
+			Debug::dump(Migrate::latest());die;
 		}
 
 		return Response::forge(View::forge('installer/confirm'));

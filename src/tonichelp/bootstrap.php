@@ -10,6 +10,7 @@ require COREPATH.'bootstrap.php';
 
 Autoloader::add_classes(array(
 	'Validation' => APPPATH.'classes/validation.php',
+	'DBUtil' => APPPATH.'classes/dbutil.php',
 ));
 
 // Register the autoloader

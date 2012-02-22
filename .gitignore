@@ -16,4 +16,5 @@ src/tonichelp/cache/*/*
 src/tonichelp/config/crypt.php
 
 # TonicHelp specific ones
+src/tonichelp/config/tonichelp.php
 src/tonichelp/config/production/db.php

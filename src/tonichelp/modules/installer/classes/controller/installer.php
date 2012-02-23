@@ -185,7 +185,7 @@ class Controller_Installer extends \Controller
 			}
 		}
 
-		return \Response::forge(\View::forge('installer/index'));
+		return \Response::forge(\View::forge('index'));
 	}
 
 	public function action_confirm()
@@ -251,7 +251,7 @@ class Controller_Installer extends \Controller
 			\Debug::dump(\Migrate::latest());die;
 		}
 
-		return \Response::forge(\View::forge('installer/confirm'));
+		return \Response::forge(\View::forge('confirm'));
 	}
 
 }

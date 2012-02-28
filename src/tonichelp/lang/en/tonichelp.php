@@ -68,6 +68,7 @@ return array(
 			'write_config'              => "The config file ':path' can't be wrote.",
 			'create_database'           => "The database ':dbname' can't be created. Do you have rights?",
 			'invalid_delete'			=> "The file/path can't be deleted. Does ':path' exists and have rights?",
+			'migration_exists'          => "It seems that TonicHelp has already been installed...",
 		),
 	),
 

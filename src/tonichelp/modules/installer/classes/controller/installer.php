@@ -248,7 +248,15 @@ class Controller_Installer extends \Controller
 
 			// We have the user confirmation, so run the migration task
 			// to install the first schema
-			\Migrate::latest('installer', 'module');
+			$installer_migration = \Migrate::latest('installer', 'module');
+
+			if((bool) $installer_migration === false)
+			{
+				$error = __('tonichelp.installer.errors.migration_exists', array('path' => $config_path));
+
+				return \Response::forge(\View::forge('installer/index', array('error' => $error)));	
+			}
+
 		}
 
 		return \Response::forge(\View::forge('confirm'));

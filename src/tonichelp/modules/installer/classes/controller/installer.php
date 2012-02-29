@@ -86,7 +86,7 @@ class Controller_Installer extends \Controller
 					{
 						$error = __('tonichelp.installer.errors.invalid_path', array('path' => $basepath));
 						
-						return \Response::forge(\View::forge('installer/index', array('error' => $error)));
+						return \Response::forge(\View::forge('index', array('error' => $error)));
 					}
 				}
 
@@ -101,7 +101,7 @@ class Controller_Installer extends \Controller
 					{
 						$error = __('tonichelp.installer.errors.invalid_path', array('path' => $path));
 						
-						return \Response::forge(\View::forge('installer/index', array('error' => $error)));
+						return \Response::forge(\View::forge('index', array('error' => $error)));
 					}
 					catch (\FileAccessException $e)
 					{
@@ -118,7 +118,7 @@ class Controller_Installer extends \Controller
 				{
 					$error = __('tonichelp.installer.errors.config', array('path' => $path.'db.php'));
 						
-					return \Response::forge(\View::forge('installer/index', array('error' => $error)));
+					return \Response::forge(\View::forge('index', array('error' => $error)));
 				}
 
 				// Congrats! You've now a DB config but... does it work? ;-)
@@ -138,14 +138,14 @@ class Controller_Installer extends \Controller
 					{
 						$error = __('tonichelp.installer.errors.config', array('path' => $path.'db.php'));
 							
-						return \Response::forge(\View::forge('installer/index', array('error' => $error)));
+						return \Response::forge(\View::forge('index', array('error' => $error)));
 					}
 				}
 				catch (\Database_Exception $e)
 				{
 					$error = __('tonichelp.installer.errors.create_database', array('dbname' => $dbname));
 						
-					return \Response::forge(\View::forge('installer/index', array('error' => $error)));
+					return \Response::forge(\View::forge('index', array('error' => $error)));
 				}
 
 				// General config vars on tonichelp config file (on next step will be migrated to DB too)
@@ -165,7 +165,7 @@ class Controller_Installer extends \Controller
 				{
 					$error = __('tonichelp.installer.errors.config', array('path' => APPPATH.'config/tonichelp.php'));
 						
-					return \Response::forge(\View::forge('installer/index', array('error' => $error)));
+					return \Response::forge(\View::forge('index', array('error' => $error)));
 				}
 				
 				// Finally, we save temporaly username, password and email on Session
@@ -215,7 +215,7 @@ class Controller_Installer extends \Controller
 					{
 						$error = __('tonichelp.installer.errors.invalid_delete', array('path' => $db_path));
 
-						return \Response::forge(\View::forge('installer/index', array('error' => $error)));
+						return \Response::forge(\View::forge('confirm', array('error' => $error)));
 					}
 				}
 
@@ -236,7 +236,7 @@ class Controller_Installer extends \Controller
 					{
 						$error = __('tonichelp.installer.errors.invalid_delete', array('path' => $config_path));
 
-						return \Response::forge(\View::forge('installer/index', array('error' => $error)));	
+						return \Response::forge(\View::forge('confirm', array('error' => $error)));	
 					}
 				}
 
@@ -254,7 +254,7 @@ class Controller_Installer extends \Controller
 			{
 				$error = __('tonichelp.installer.errors.migration_exists', array('path' => $config_path));
 
-				return \Response::forge(\View::forge('installer/index', array('error' => $error)));	
+				return \Response::forge(\View::forge('confirm', array('error' => $error)));	
 			}
 
 		}

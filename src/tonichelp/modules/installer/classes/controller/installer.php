@@ -25,6 +25,8 @@ class Controller_Installer extends \Controller
 			// We don't let the user know that the controller exists
 			throw new \HttpNotFoundException;
 		}
+
+		\Lang::load('installer', 'tonichelp');
 	}
 
 	public function action_index()
@@ -257,6 +259,97 @@ class Controller_Installer extends \Controller
 				return \Response::forge(\View::forge('confirm', array('error' => $error)));	
 			}
 
+			/**
+			 * Now we will try to install all the modules
+			 */
+
+			// First we need to know which modules and the order of them
+			$modules = array();
+			$after = array();
+
+			foreach(\Config::get('module_paths') as $path)
+			{
+				foreach(\File::read_dir($path, 1) as $module => $value)
+				{
+					$module = str_replace(array('/', DS), '', $module);
+					$module_config = null;
+					
+					if(empty($module) OR $module == 'installer')
+						continue;
+
+					$file_path = $path.DS.$module.DS.'config'.DS.'module.php';
+
+					if(file_exists($file_path))
+					{
+						$module_config = include($file_path);
+
+						if(!isset($module_config['install']))
+						{
+							$modules[] = $module;
+
+							continue;
+						}
+
+						if(isset($module_config['install']['position']))
+						{
+							if($module_config['install']['position'] == 'before')
+							{
+								$key = array_search($module_config['install']['module'], $modules);
+								
+								if(false !== $key)
+									$insert = \Arr::insert_before_key($modules, $module, $key);
+								else
+									$modules[] = $module;
+
+								continue;
+							}
+							else
+							{
+								$key = array_search($module_config['install']['module'], $modules);
+								
+								if(false !== $key)
+									\Arr::insert_after_key($modules, $module, $key);
+								else
+									$after[$module] = $module_config['install']['module'];
+
+								continue;
+							}
+						}
+						else
+						{
+							$modules[] = $module;
+						}
+					}
+					else
+					{
+						$modules[] = $module;
+					}
+				}
+			}
+
+			/**
+			 * If there is any after position we couldn't add it, we need to
+			 * for each them and try to add it. If there is the position is not
+			 * found we add it to the $modules array anyway.
+			 */
+			if(count($after) > 0)
+			{
+				foreach($after as $module => $after_module)
+				{
+					$key = array_search($after_module, $modules);	
+
+					if(false !== $key)
+						\Arr::insert_after_key($modules, $module, $key);
+					else
+						$modules[] = $module;
+				}
+			}
+
+			// Finally, run migrations for each of it :-)
+			foreach($modules as $module)
+			{
+				\Migrate::latest($module, 'module');
+			}
 		}
 
 		return \Response::forge(\View::forge('confirm'));
